@@ -1,0 +1,890 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  FileText, 
+  Folder, 
+  Search, 
+  GitBranch, 
+  Settings, 
+  ChevronRight, 
+  X, 
+  Github, 
+  Linkedin, 
+  Mail, 
+  Globe,
+  Youtube,
+  Instagram,
+  FileCode,
+  Layout,
+  Cpu,
+  Database,
+  Briefcase
+} from 'lucide-react';
+
+const FILES = [
+  { id: 'home.tsx', name: 'home.tsx', icon: <Cpu className="w-4 h-4 text-blue-400" />, type: 'tsx' },
+  { id: 'about.html', name: 'about.html', icon: <Layout className="w-4 h-4 text-orange-500" />, type: 'html' },
+  { id: 'projects.js', name: 'projects.js', icon: <FileCode className="w-4 h-4 text-yellow-400" />, type: 'js' },
+  { id: 'skills.json', name: 'skills.json', icon: <Database className="w-4 h-4 text-yellow-600" />, type: 'json' },
+  { id: 'experience.ts', name: 'experience.ts', icon: <Briefcase className="w-4 h-4 text-blue-500" />, type: 'ts' },
+  { id: 'contact.css', name: 'contact.css', icon: <FileText className="w-4 h-4 text-blue-300" />, type: 'css' },
+  { id: 'README.md', name: 'README.md', icon: <FileText className="w-4 h-4 text-blue-400" />, type: 'md' },
+];
+
+const SKILLS_DATA = [
+  { category: 'LANGUAGES', items: [
+    { name: 'Python', level: 92, color: '#f59e0b' },
+    { name: 'Java', level: 75, color: '#ef4444' },
+    { name: 'JavaScript', level: 88, color: '#facc15' },
+    { name: 'TypeScript', level: 84, color: '#3b82f6' },
+    { name: 'SQL', level: 80, color: '#a855f7' },
+  ]},
+  { category: 'GENERATIVE AI & LLM ENGINEERING', items: [
+    { name: 'LangChain', level: 92, color: '#10b981' },
+    { name: 'LlamaIndex', level: 85, color: '#3b82f6' },
+    { name: 'RAG Pipelines', level: 90, color: '#6366f1' },
+    { name: 'Prompt Engineering', level: 95, color: '#f59e0b' },
+    { name: 'Agentic Workflows', level: 82, color: '#ec4899' },
+  ]},
+  { category: 'AI · ML · DATA SCIENCE', items: [
+    { name: 'PyTorch', level: 88, color: '#ef4444' },
+    { name: 'TensorFlow', level: 82, color: '#f59e0b' },
+    { name: 'scikit-learn', level: 90, color: '#3b82f6' },
+    { name: 'Pandas', level: 95, color: '#10b981' },
+    { name: 'NumPy', level: 95, color: '#6366f1' },
+  ]},
+  { category: 'BACKEND & APIS', items: [
+    { name: 'FastAPI', level: 92, color: '#10b981' },
+    { name: 'Flask', level: 85, color: '#3b82f6' },
+    { name: 'Django', level: 80, color: '#10b981' },
+  ]},
+  { category: 'DATABASES', items: [
+    { name: 'PostgreSQL', level: 85, color: '#3b82f6' },
+    { name: 'Redis', level: 75, color: '#ef4444' },
+    { name: 'MongoDB', level: 80, color: '#10b981' },
+  ]},
+  { category: 'VECTOR DATABASES', items: [
+    { name: 'Chroma', level: 88, color: '#3b82f6' },
+    { name: 'Pinecone', level: 85, color: '#a855f7' },
+  ]},
+  { category: 'DEVOPS & TOOLS', items: [
+    { name: 'Docker', level: 85, color: '#3b82f6' },
+    { name: 'Git', level: 92, color: '#f59e0b' },
+    { name: 'Linux', level: 88, color: '#f59e0b' },
+    { name: 'AWS', level: 75, color: '#f59e0b' },
+  ]},
+  { category: 'FRONTEND', items: [
+    { name: 'React', level: 80, color: '#3b82f6' },
+    { name: 'Next.js', level: 75, color: '#10b981' },
+    { name: 'TailwindCSS', level: 85, color: '#3b82f6' },
+  ]},
+];
+
+const PROJECTS = [
+  { 
+    id: 1, 
+    title: 'Little Angel Foundation', 
+    tags: ['FULL STACK', 'NGO', 'SOCIAL IMPACT'], 
+    color: '#ec4899', 
+    description: 'A platform dedicated to NGO management and donor engagement.',
+    icon: '🤍'
+  },
+  { 
+    id: 2, 
+    title: "Safe Yatra - Women's Safety App", 
+    tags: ['MOBILE', 'AI', 'SAFETY TECH'], 
+    color: '#f43f5e', 
+    description: 'AI-powered safety application for real-time tracking and threat detection.',
+    icon: '📍'
+  },
+  { 
+    id: 3, 
+    title: 'OrgMind - Company Intelligence Assistant', 
+    tags: ['AI', 'GRAPHQL', 'FULL STACK'], 
+    color: '#8b5cf6', 
+    description: 'Enterprise AI assistant for deep organizational knowledge retrieval.',
+    icon: '🧠'
+  },
+  { 
+    id: 4, 
+    title: 'Gita-GPT', 
+    tags: ['FULL STACK', 'NLP', 'GENAI'], 
+    color: '#a855f7', 
+    description: 'Interactive AI based on spiritual texts using LLMs and RAG.',
+    icon: '🕉️'
+  },
+  { 
+    id: 5, 
+    title: 'Smart Resource Tracker', 
+    tags: ['BACKEND', 'API', 'ML'], 
+    color: '#3b82f6', 
+    description: 'Optimization tool for enterprise resource allocation.',
+    icon: '📊'
+  },
+  { 
+    id: 6, 
+    title: 'Dockerized ML Prediction API', 
+    tags: ['MLOPS', 'DOCKER', 'API'], 
+    color: '#06b6d4', 
+    description: 'Scalable containerized deployment of machine learning models.',
+    icon: '🐳'
+  }
+];
+
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (window.getComputedStyle(target).cursor === 'pointer' || target.tagName === 'BUTTON' || target.tagName === 'A') {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseover', onMouseOver);
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseover', onMouseOver);
+    };
+  }, []);
+
+  return (
+    <div 
+      className="fixed pointer-events-none z-[9999] flex items-center justify-center"
+      style={{ left: position.x, top: position.y, transform: 'translate(-50%, -50%)', transition: 'none' }}
+    >
+      <div className={`w-4 h-4 border flex items-center justify-center ${isHovering ? 'border-[#61dafb]' : 'border-white'}`}>
+        <div className={`w-1 h-1 ${isHovering ? 'bg-[#61dafb]' : 'bg-white'}`}></div>
+      </div>
+    </div>
+  );
+};
+
+const TypingEffect = () => {
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const phrases = [
+    "Building intelligent backend systems 🚀",
+    "Exploring LLMs & RAG pipelines 🤖",
+    "Developing scalable AI integrations ⚙️"
+  ];
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const current = loopNum % phrases.length;
+      const fullText = phrases[current];
+
+      setText(isDeleting 
+        ? fullText.substring(0, text.length - 1) 
+        : fullText.substring(0, text.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 50 : 150);
+
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && text === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
+
+  return (
+    <div className="text-gray-400 font-mono text-sm h-6">
+      <span className="text-white">{text}</span>
+      <span className="border-r-2 border-white ml-1 animate-pulse"></span>
+    </div>
+  );
+};
+
+export default function App() {
+  const [openFiles, setOpenFiles] = useState(['home.tsx']);
+  const [activeFile, setActiveFile] = useState('home.tsx');
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [skillsVisible, setSkillsVisible] = useState(false);
+  
+  useEffect(() => {
+    if (activeFile === 'skills.json') {
+      setSkillsVisible(false);
+      setTimeout(() => setSkillsVisible(true), 50);
+    }
+  }, [activeFile]);
+
+  const handleOpenFile = (fileId: string) => {
+    if (!openFiles.includes(fileId)) {
+      setOpenFiles([...openFiles, fileId]);
+    }
+    setActiveFile(fileId);
+    setIsPaletteOpen(false);
+    setActiveMenu(null);
+  };
+
+  const handleCloseFile = (e: React.MouseEvent, fileId: string) => {
+    e.stopPropagation();
+    const newFiles = openFiles.filter(f => f !== fileId);
+    setOpenFiles(newFiles);
+    if (activeFile === fileId && newFiles.length > 0) {
+      setActiveFile(newFiles[newFiles.length - 1]);
+    } else if (newFiles.length === 0) {
+      setActiveFile('');
+    }
+  };
+
+  const downloadResume = () => {
+    const element = document.createElement("a");
+    const file = new Blob(["Aahana Bobade - Resume\n\nContact: aahanabobade@gmail.com\nLinkedIn: linkedin.com/in/aahana-bobade\nGitHub: github.com/aahanabobade\n\nPlease contact Aahana for the full PDF resume."], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = "Aahana_Bobade_Resume.txt";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+    setActiveMenu(null);
+  };
+
+  const renderContent = () => {
+    switch (activeFile) {
+      case 'home.tsx':
+        return (
+          <div className="p-12 font-mono text-white">
+            <div className="text-emerald-400 mb-8">// hello world !! Welcome to my portfolio</div>
+            <h1 className="text-8xl font-black mb-2 tracking-tighter">Aahana</h1>
+            <h1 className="text-8xl font-black text-pink-500 mb-8 tracking-tighter">Bobade</h1>
+            
+            <div className="flex flex-wrap gap-4 mb-8">
+              <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Backend Engineer
+              </span>
+              <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
+                <span className="w-2 h-2 rounded-full bg-pink-500"></span> AI / ML Dev
+              </span>
+              <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
+                <span className="w-2 h-2 rounded-full bg-blue-500"></span> Data Scientist
+              </span>
+              <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700 text-pink-300">
+                <span className="w-2 h-2 rounded-full bg-pink-400"></span> @ EduVanceAI
+              </span>
+            </div>
+
+            <TypingEffect />
+
+            <p className="mt-8 text-lg max-w-2xl leading-relaxed text-zinc-400">
+              I live at the crossroads of <span className="text-blue-400">backend engineering</span>, <span className="text-blue-400">AI/ML</span>, and <span className="text-blue-400">data science</span>. I build systems that are genuinely <span className="text-blue-400 italic">intelligent and scalable</span>.
+            </p>
+
+            <div className="flex gap-4 mt-12">
+              <button onClick={() => handleOpenFile('projects.js')} className="bg-blue-600 hover:bg-blue-700 px-6 py-2 flex items-center gap-2 text-sm font-bold transition-all transform hover:-translate-y-0.5">
+                <Folder className="w-4 h-4" /> Projects
+              </button>
+              <button onClick={() => handleOpenFile('about.html')} className="border border-zinc-700 bg-zinc-800/30 hover:bg-zinc-800 px-6 py-2 flex items-center gap-2 text-sm transition-all transform hover:-translate-y-0.5">
+                <Settings className="w-4 h-4" /> About Me
+              </button>
+              <button onClick={() => handleOpenFile('contact.css')} className="border border-zinc-700 bg-zinc-800/30 hover:bg-zinc-800 px-6 py-2 flex items-center gap-2 text-sm transition-all transform hover:-translate-y-0.5">
+                <Mail className="w-4 h-4" /> Contact
+              </button>
+            </div>
+
+            <div className="grid grid-cols-4 gap-4 mt-24 border-t border-zinc-800 pt-12 text-center">
+              <div>
+                <div className="text-4xl font-bold">3+</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Years</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold">10+</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Projects</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold">∞</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Curiosity</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold">↑</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Always Learning</div>
+              </div>
+            </div>
+
+            <div className="mt-20 flex flex-wrap gap-4 items-center justify-center opacity-60">
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Github size={14}/> GitHub</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Linkedin size={14} className="text-blue-500"/> LinkedIn</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><FileText size={14} className="text-zinc-400"/> Medium</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Search size={14} className="text-orange-400"/> Tableau</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Globe size={14} className="text-yellow-500"/> LeetCode</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Instagram size={14} className="text-pink-500"/> Instagram</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Mail size={14} className="text-emerald-400"/> Email</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Youtube size={14} className="text-red-600"/> Youtube</div>
+            </div>
+          </div>
+        );
+
+      case 'about.html':
+        return (
+          <div className="p-12 text-zinc-300">
+            <div className="text-zinc-600 mb-2 font-mono text-sm">&lt;!-- about.html - Aahana Bobade --&gt;</div>
+            <h1 className="text-5xl font-black text-white mb-2 font-mono">About Me</h1>
+            <div className="text-emerald-400 font-mono mb-12">// who I am - what I do - where I build</div>
+
+            <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded mb-8 max-w-4xl">
+              <p className="leading-relaxed">
+                Hi! I'm <span className="text-blue-400 font-bold">Aahana Bobade</span>, a software developer living at the crossroads of <span className="text-blue-400 underline decoration-zinc-600">backend engineering</span>, <span className="text-blue-400 underline decoration-zinc-600">AI/ML</span>, and <span className="text-blue-400 underline decoration-zinc-600">data science</span>. I love building systems that are not just functional but genuinely <span className="text-blue-400 italic">intelligent and scalable</span>. Currently a <span className="text-blue-400 font-bold">Junior Software Developer at EduVanceAI</span>, building AI integrations and backend systems that power learning experiences for thousands of users daily.
+              </p>
+            </div>
+
+            <h2 className="text-emerald-400 font-mono text-sm uppercase tracking-widest mb-4">Current Focus</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 max-w-4xl">
+              <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
+                🚀 Building scalable backend systems & AI integrations at EduVanceAI
+              </div>
+              <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
+                💬 Deep interest in NLP, LLMs & RAG pipelines
+              </div>
+              <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
+                📂 Currently exploring RAG, MLOps & Vector Databases
+              </div>
+              <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
+                ✨ Talk to me about Python, APIs, Data Science
+              </div>
+            </div>
+
+            <h2 className="text-emerald-400 font-mono text-sm uppercase tracking-widest mb-4">Education</h2>
+            <div className="space-y-4 max-w-4xl">
+              <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-bold text-white">🎓 SIES Graduate School of Technology</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2021 - 2025</span>
+                </div>
+                <div className="text-zinc-400 text-sm mb-1">University of Mumbai</div>
+                <div className="text-blue-400 text-sm mb-4">Bachelor of Engineering in Computer Engineering</div>
+                <div className="text-zinc-500 text-xs italic mb-2">Minors: Artificial Intelligence & Machine Learning (AI/ML)</div>
+                <div className="text-emerald-400 font-mono text-xs">GPA: 9.38</div>
+              </div>
+              <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-bold text-white">🏫 New Horizon Public School, Airoli</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2007 - 2021</span>
+                </div>
+                <div className="text-zinc-400 text-sm mb-4">Higher Secondary Education</div>
+                <div className="flex gap-4 text-emerald-400 font-mono text-xs">
+                  <span>Class 12th: 89.6%</span>
+                  <span>|</span>
+                  <span>Class 10th: 91.5%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'projects.js':
+        return (
+          <div className="p-12">
+            <div className="text-zinc-600 mb-2 font-mono text-sm">// projects.js - things I've built & shipped</div>
+            <h1 className="text-5xl font-black text-white mb-12 font-mono">Projects</h1>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {PROJECTS.map(p => (
+                <div key={p.id} className="group relative bg-zinc-900/40 border border-zinc-800 p-6 rounded-sm transition-all duration-300 cursor-pointer overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-[2px] transition-all duration-500 z-0" style={{ backgroundColor: p.color }}></div>
+                  
+                  <div className="relative z-20">
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-2xl">{p.icon}</span>
+                      <div className="flex flex-wrap gap-2 justify-end">
+                        {p.tags.map(t => (
+                          <span key={t} className="text-[9px] px-2 py-0.5 rounded-full border border-zinc-700 bg-zinc-800/50" style={{ color: p.color }}>{t}</span>
+                        ))}
+                        <span className="text-[9px] text-zinc-500 px-2 py-0.5 border border-zinc-800 uppercase">Live ↗</span>
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-pink-100 transition-colors">{p.title}</h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-6">{p.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">FastAPI</span>
+                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">LangChain</span>
+                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">React</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'skills.json':
+        return (
+          <div className="p-12">
+            <div className="text-zinc-600 mb-2 font-mono text-sm">// skills.json - tech stack & tools I actually use</div>
+            <h1 className="text-5xl font-black text-white mb-4 font-mono">Skills</h1>
+            <div className="text-zinc-500 font-mono text-sm mb-12">{`{ "status": "always_learning", "passion": "immeasurable" }`}</div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12 max-w-6xl">
+              {SKILLS_DATA.map(cat => (
+                <div key={cat.category}>
+                  <h3 className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] mb-6">{cat.category}</h3>
+                  <div className="space-y-4">
+                    {cat.items.map(skill => (
+                      <div key={skill.name}>
+                        <div className="flex justify-between text-[11px] mb-1.5 font-mono">
+                          <span className="text-zinc-300">{skill.name}</span>
+                          <span className="text-zinc-500">{skill.level}%</span>
+                        </div>
+                        <div className="h-[3px] w-full bg-zinc-800/50 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full transition-all duration-1000 ease-out"
+                            style={{ 
+                              width: skillsVisible ? `${skill.level}%` : '0%',
+                              backgroundColor: skill.color
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-20">
+              <h3 className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-6">ALSO FAMILIAR WITH:</h3>
+              <div className="flex flex-wrap gap-3">
+                {['Pandas', 'NumPy', 'Matplotlib', 'SciPy', 'NLTK', 'SPacy', 'CV2', 'PySide6', 'Selenium', 'LangGraph', 'OpenAI API', 'Firebase', 'Power BI', 'Figma', 'MS Office', 'NLP Pipe-lining', 'Vector DBs'].map(item => (
+                  <div key={item} className="px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs text-zinc-400 hover:text-blue-400 hover:border-blue-500 transition-colors cursor-pointer">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'experience.ts':
+        return (
+          <div className="p-12">
+            <div className="text-emerald-400 mb-2 font-mono text-sm">// experience.ts - professional journey</div>
+            <h1 className="text-6xl font-black text-white mb-2 font-mono">Experience</h1>
+            <div className="text-zinc-500 font-mono text-sm mb-12">interface Career extends TimeLine {'{}'}</div>
+
+            <div className="relative pl-8 border-l border-zinc-800 space-y-16">
+              <div className="relative">
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-blue-500"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">2025 - Present</div>
+                <h3 className="text-2xl font-bold text-white mb-1">Junior Software Developer</h3>
+                <div className="text-blue-400 font-mono text-sm mb-4">@ EduVanceAI</div>
+                <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
+                  Building intelligent backend systems and AI integrations for an EdTech platform. ML-powered personalization, RAG pipelines, and scalable APIs serving thousands of learners daily.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['FastAPI', 'Python', 'Django', 'PostgreSQL', 'Docker', 'AWS', 'GenAI', 'React'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">Jun 2023 - Aug 2023</div>
+                <h3 className="text-2xl font-bold text-white mb-1">User Experience Designer</h3>
+                <div className="text-blue-400 font-mono text-sm mb-4">@ Zepto Digital Labs</div>
+                <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
+                  Designed UI for a simulation platform and improved user experience through design thinking principles. Delivered research-backed interface improvements that enhanced usability.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Figma', 'UX Research', 'Design Thinking', 'Prototyping'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">Jun 2022 - Jul 2022</div>
+                <h3 className="text-2xl font-bold text-white mb-1">Back End Intern</h3>
+                <div className="text-blue-400 font-mono text-sm mb-4">@ Laser Technologies Pvt Ltd</div>
+                <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
+                  Managed and maintained backend systems and databases to support enterprise-level web applications. Ensured uptime, performance, and data integrity across production systems.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Backend', 'Databases', 'SQL', 'Web Applications'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'contact.css':
+        return (
+          <div className="p-12">
+            <div className="text-yellow-500 mb-2 font-mono text-sm">/* contact.css - let's build something */</div>
+            <h1 className="text-6xl font-black text-white mb-2 font-mono">Contact</h1>
+            <div className="text-zinc-500 font-mono text-sm mb-12">// open to work, collabs & good conversations</div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl">
+              <div>
+                <h3 className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] mb-8">FIND ME ON</h3>
+                <div className="space-y-4">
+                  <a href="mailto:aahanabobade@gmail.com" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-emerald-500/10 flex items-center justify-center rounded">
+                        <Mail className="text-emerald-500 w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-emerald-500 uppercase font-mono">Email</div>
+                        <div className="text-sm text-zinc-300">aahanabobade@gmail.com</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
+                  </a>
+                  <a href="https://linkedin.com/in/aahana-bobade" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-blue-500/10 flex items-center justify-center rounded">
+                        <Linkedin className="text-blue-500 w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-blue-500 uppercase font-mono">LinkedIn</div>
+                        <div className="text-sm text-zinc-300">linkedin.com/in/aahana-bobade</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
+                  </a>
+                  <a href="https://github.com/aahanabobade" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-zinc-100/10 flex items-center justify-center rounded">
+                        <Github className="text-zinc-100 w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-500 uppercase font-mono">GitHub</div>
+                        <div className="text-sm text-zinc-300">github.com/aahanabobade</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] mb-8">SEND A MESSAGE</h3>
+                <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+                  <div>
+                    <div className="text-emerald-500 font-mono text-[10px] mb-1">// YOUR_NAME *</div>
+                    <input type="text" placeholder="string" className="w-full bg-zinc-900 border border-zinc-800 p-3 text-sm focus:border-blue-500 outline-none text-zinc-300 font-mono" />
+                  </div>
+                  <div>
+                    <div className="text-emerald-500 font-mono text-[10px] mb-1">// YOUR_EMAIL *</div>
+                    <input type="email" placeholder="string" className="w-full bg-zinc-900 border border-zinc-800 p-3 text-sm focus:border-blue-500 outline-none text-zinc-300 font-mono" />
+                  </div>
+                  <div>
+                    <div className="text-emerald-500 font-mono text-[10px] mb-1">// SUBJECT</div>
+                    <input type="text" placeholder="string" className="w-full bg-zinc-900 border border-zinc-800 p-3 text-sm focus:border-blue-500 outline-none text-zinc-300 font-mono" />
+                  </div>
+                  <div>
+                    <div className="text-emerald-500 font-mono text-[10px] mb-1">// MESSAGE *</div>
+                    <textarea rows={4} placeholder={`"your message"`} className="w-full bg-zinc-900 border border-zinc-800 p-3 text-sm focus:border-blue-500 outline-none text-zinc-300 font-mono resize-none"></textarea>
+                  </div>
+                  <button className="bg-blue-600 hover:bg-blue-700 w-full py-3 font-mono text-sm transition-colors mt-4">
+                    send_message()
+                  </button>
+                  <div className="text-zinc-500 text-[10px] font-mono italic mt-2">
+                    // Powered by Formspree (lands directly in my inbox) :p
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'README.md':
+        return (
+          <div className="p-12 text-zinc-300 max-w-4xl">
+            <div className="flex items-end gap-2 mb-8">
+              <h1 className="text-4xl font-bold text-white">Aahana Bobade</h1>
+              <div className="h-px bg-zinc-800 flex-grow mb-2"></div>
+            </div>
+            <div className="text-xs text-zinc-500 font-mono mb-8 uppercase tracking-widest">
+              Junior Software Developer @ EduVanceAI - India 🇮🇳
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-12">
+              <span className="px-2 py-0.5 bg-blue-900/30 text-blue-400 text-[10px] border border-blue-900/50 flex items-center gap-1"><Cpu size={10}/> Python</span>
+              <span className="px-2 py-0.5 bg-blue-900/30 text-blue-400 text-[10px] border border-blue-900/50 flex items-center gap-1"><Cpu size={10}/> TypeScript</span>
+              <span className="px-2 py-0.5 bg-emerald-900/30 text-emerald-400 text-[10px] border border-emerald-900/50 flex items-center gap-1"><Cpu size={10}/> FastAPI</span>
+              <span className="px-2 py-0.5 bg-purple-900/30 text-purple-400 text-[10px] border border-purple-900/50 flex items-center gap-1"><Cpu size={10}/> LangChain</span>
+              <span className="px-2 py-0.5 bg-red-900/30 text-red-400 text-[10px] border border-red-900/50 flex items-center gap-1"><Cpu size={10}/> PyTorch</span>
+            </div>
+
+            <h2 className="text-xl font-bold text-pink-400 flex items-center gap-2 mb-4">💜 About</h2>
+            <p className="leading-relaxed mb-12">
+              Hi, Aahana on this side! I am an aspiring computer engineer and am curious to learn new things about life every day! Perfection is something I always aim for. Being big on integrity and authenticity is something I always believe in. I enjoy painting, photography, designing, and editing. Growing up, I have always loved spending quality time making music on the keyboard. Glad to see you, cheers!
+            </p>
+
+            <div className="space-y-2 mb-12 text-sm text-zinc-400 font-mono">
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Building <span className="text-white">scalable AI integrations</span> @ EduVanceAI</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> NLP, LLMs, RAG pipelines, Vector DBs</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Making <span className="text-white">data stories</span> non-data people get</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Always learning, always shipping</div>
+            </div>
+
+            <h2 className="text-xl font-bold text-white mb-4">Stack</h2>
+            <div className="space-y-4 text-xs font-mono">
+              <div className="flex gap-4">
+                <span className="text-zinc-500 w-24">Languages:</span>
+                <span className="text-orange-400 flex flex-wrap gap-2">
+                  {['Python', 'TypeScript', 'SQL', 'JavaScript', 'Java'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                </span>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-zinc-500 w-24">AI / ML:</span>
+                <span className="text-orange-400 flex flex-wrap gap-2">
+                  {['PyTorch', 'LangChain', 'HuggingFace', 'scikit-learn', 'TensorFlow'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                </span>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-zinc-500 w-24">Backend:</span>
+                <span className="text-orange-400 flex flex-wrap gap-2">
+                  {['FastAPI', 'Flask', 'Django', 'PostgreSQL', 'Redis'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-20 border-t border-zinc-800 pt-8 text-center text-zinc-600 text-[10px] font-mono italic">
+              Made with 🤍 by Aahana · 2026
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="flex items-center justify-center h-full text-zinc-600 font-mono text-sm">
+            Select a file from the sidebar to view its contents
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div 
+      className="flex flex-col h-screen bg-[#1e1e1e] text-zinc-300 select-none overflow-hidden cursor-none"
+      onClick={() => setActiveMenu(null)}
+    >
+      <CustomCursor />
+      
+      {/* Top Menu Bar */}
+      <div className="flex items-center justify-between px-2 py-1 bg-[#333333] text-[11px] border-b border-[#2b2b2b] z-50">
+        <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+          {(['file', 'edit', 'view', 'go', 'run', 'terminal'] as const).map(menu => (
+            <div key={menu} className="relative">
+              <button 
+                className="hover:bg-zinc-700 px-2 py-1 capitalize"
+                onClick={() => setActiveMenu(activeMenu === menu ? null : menu)}
+              >
+                {menu.charAt(0).toUpperCase() + menu.slice(1)}
+              </button>
+              {activeMenu === menu && (
+                <div className="absolute top-full left-0 bg-[#252526] border border-[#3c3c3c] shadow-xl w-64 z-[100] py-1 text-zinc-300">
+                  {menu === 'file' && (
+                    <>
+                      <button onClick={() => { setIsPaletteOpen(true); setActiveMenu(null); }} className="w-full text-left px-6 py-1 hover:bg-blue-600 flex justify-between">
+                        <span>Open File...</span><span className="text-zinc-500">Ctrl+O</span>
+                      </button>
+                      <div className="h-px bg-zinc-700 my-1 mx-2"></div>
+                      <button onClick={downloadResume} className="w-full text-left px-6 py-1 hover:bg-blue-600 flex justify-between">
+                        <span>Download Resume</span>
+                      </button>
+                    </>
+                  )}
+                  {menu === 'go' && (
+                    <>
+                      <button onClick={() => { setIsPaletteOpen(true); setActiveMenu(null); }} className="w-full text-left px-6 py-1 hover:bg-blue-600 flex justify-between">
+                        <span>Go to File...</span><span className="text-zinc-500">Ctrl+P</span>
+                      </button>
+                      <div className="h-px bg-zinc-700 my-1 mx-2"></div>
+                      <div className="px-6 py-1 text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Files</div>
+                      {FILES.map(f => (
+                        <button key={f.id} onClick={() => handleOpenFile(f.id)} className="w-full text-left px-6 py-1 hover:bg-blue-600 text-xs flex items-center gap-2">
+                          {f.icon} {f.name}
+                        </button>
+                      ))}
+                    </>
+                  )}
+                  {(menu === 'edit' || menu === 'view' || menu === 'run' || menu === 'terminal') && (
+                    <button className="w-full text-left px-6 py-1 hover:bg-blue-600 text-zinc-500 italic text-xs">
+                      No actions available
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="text-zinc-500 font-medium">aahana-bobade : portfolio</div>
+        <div className="flex items-center gap-2">
+          <button className="hover:bg-zinc-700 p-1"><X className="w-3 h-3" /></button>
+        </div>
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Activity Bar */}
+        <div className="w-12 bg-[#333333] flex flex-col items-center py-4 gap-4 text-zinc-500 border-r border-[#2b2b2b] z-40">
+          <FileText className="w-6 h-6 text-zinc-300 cursor-pointer" />
+          <Search className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
+          <GitBranch className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
+          <div className="flex-1"></div>
+          <button onClick={downloadResume} title="Download Resume">
+            <FileText className="w-6 h-6 text-red-500/80 hover:text-red-500 cursor-pointer" />
+          </button>
+          <Settings className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
+        </div>
+
+        {/* Sidebar */}
+        <div className="w-64 bg-[#252526] flex flex-col text-[11px] border-r border-[#2b2b2b] overflow-y-auto">
+          <div className="flex items-center justify-between px-4 py-2 text-zinc-400 font-bold uppercase tracking-wider">
+            PORTFOLIO
+          </div>
+          <div className="mt-2">
+            <div className="flex items-center gap-1 px-2 py-1 bg-[#37373d]/50 text-zinc-300">
+              <ChevronRight className="w-3 h-3 rotate-90" />
+              <Folder className="w-3 h-3" />
+              <span className="font-bold">src</span>
+            </div>
+            <div className="ml-4 flex flex-col">
+              {FILES.map(f => (
+                <div 
+                  key={f.id}
+                  onClick={() => handleOpenFile(f.id)}
+                  className={`flex items-center gap-2 px-4 py-1.5 cursor-pointer hover:bg-[#2a2d2e] ${activeFile === f.id ? 'bg-[#37373d] text-white' : 'text-zinc-400'}`}
+                >
+                  {f.icon}
+                  <span>{f.name}</span>
+                </div>
+              ))}
+              <div 
+                onClick={downloadResume}
+                className="flex items-center gap-2 px-4 py-1.5 cursor-pointer hover:bg-[#2a2d2e] text-zinc-400"
+              >
+                <FileText className="w-4 h-4 text-red-400" />
+                <span>Aahana_Resume.txt</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Editor Area */}
+        <div className="flex-1 flex flex-col overflow-hidden bg-[#1e1e1e]">
+          {/* Tabs */}
+          <div className="flex bg-[#252526] overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+            {openFiles.map(fileId => {
+              const file = FILES.find(f => f.id === fileId);
+              return (
+                <div 
+                  key={fileId}
+                  onClick={() => setActiveFile(fileId)}
+                  className={`flex items-center gap-2 px-3 py-2 cursor-pointer border-r border-[#1e1e1e] min-w-[120px] max-w-[200px] text-[11px] group transition-all ${activeFile === fileId ? 'bg-[#1e1e1e] border-t border-t-blue-500 text-white' : 'bg-[#2d2d2d] text-zinc-500 hover:bg-[#252526]'}`}
+                >
+                  {file?.icon}
+                  <span className="truncate flex-1">{file?.name}</span>
+                  <X 
+                    className={`w-3 h-3 hover:bg-[#454545] rounded flex-shrink-0 transition-opacity ${activeFile === fileId ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} 
+                    onClick={(e) => handleCloseFile(e, fileId)} 
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Breadcrumbs */}
+          {activeFile && (
+            <div className="px-4 py-1 bg-[#1e1e1e] border-b border-[#2b2b2b] flex items-center gap-2 text-[11px] text-zinc-500 font-mono">
+              <span className="hover:text-zinc-300 cursor-pointer">aahana-bobade</span>
+              <span>&gt;</span>
+              <span className="hover:text-zinc-300 cursor-pointer">src</span>
+              <span>&gt;</span>
+              <span className="text-zinc-300">{activeFile}</span>
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto" style={{ scrollbarColor: '#333 #1e1e1e', scrollbarWidth: 'thin' }}>
+            {renderContent()}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Status Bar */}
+      <div className="bg-[#007acc] h-6 flex items-center justify-between px-3 text-[11px] text-white z-50">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 hover:bg-[#ffffff22] px-1 transition-colors cursor-pointer">
+            <GitBranch className="w-3 h-3" />
+            <span>main</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">UTF-8</div>
+          <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">TypeScript React</div>
+          <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">Aahana Dark ✨</div>
+        </div>
+      </div>
+
+      {/* Command Palette Overlay */}
+      {isPaletteOpen && (
+        <div 
+          className="fixed inset-0 bg-black/40 z-[200] flex justify-center pt-2"
+          onClick={() => setIsPaletteOpen(false)}
+        >
+          <div 
+            className="w-full max-w-[600px] bg-[#252526] border border-[#3c3c3c] shadow-2xl overflow-hidden"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2 p-2 border-b border-[#3c3c3c] bg-[#1e1e1e]">
+              <ChevronRight className="w-3 h-3 text-zinc-600" />
+              <input 
+                autoFocus 
+                type="text" 
+                placeholder="Go to file or run command..." 
+                className="bg-transparent border-none outline-none text-xs w-full text-zinc-300 font-mono"
+              />
+              <button onClick={() => setIsPaletteOpen(false)} className="text-[10px] text-zinc-500 bg-[#333333] px-1 rounded cursor-pointer">Esc</button>
+            </div>
+            <div className="p-2">
+              <div className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest px-2 mb-2">Files</div>
+              <div className="space-y-0.5">
+                {FILES.map(f => (
+                  <button 
+                    key={f.id} 
+                    onClick={() => handleOpenFile(f.id)}
+                    className="w-full text-left px-3 py-2 hover:bg-blue-600 group flex items-center justify-between text-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      {f.icon}
+                      <span className="text-zinc-300 group-hover:text-white">{f.name}</span>
+                    </div>
+                    <span className="text-zinc-500 group-hover:text-white/70 italic text-[10px]">src/</span>
+                  </button>
+                ))}
+                <button onClick={downloadResume} className="w-full text-left px-3 py-2 hover:bg-blue-600 group flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-4 h-4 text-red-400" />
+                    <span className="text-zinc-300 group-hover:text-white">Aahana_Resume.txt</span>
+                  </div>
+                  <span className="text-zinc-500 group-hover:text-white/70 italic text-[10px]">./</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
