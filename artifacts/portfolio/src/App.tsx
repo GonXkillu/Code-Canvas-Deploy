@@ -17,7 +17,9 @@ import {
   Layout,
   Cpu,
   Database,
-  Briefcase
+  Briefcase,
+  Cloud,
+  Shield
 } from 'lucide-react';
 
 const FILES = [
@@ -31,102 +33,80 @@ const FILES = [
 ];
 
 const SKILLS_DATA = [
-  { category: 'LANGUAGES', items: [
-    { name: 'Python', level: 92, color: '#f59e0b' },
-    { name: 'Java', level: 75, color: '#ef4444' },
-    { name: 'JavaScript', level: 88, color: '#facc15' },
-    { name: 'TypeScript', level: 84, color: '#3b82f6' },
-    { name: 'SQL', level: 80, color: '#a855f7' },
+  { category: 'CLOUD INFRASTRUCTURE', items: [
+    { name: 'AWS IAM', level: 88, color: '#f59e0b' },
+    { name: 'AWS S3', level: 85, color: '#f59e0b' },
+    { name: 'AWS EC2', level: 82, color: '#f59e0b' },
+    { name: 'AWS VPC', level: 80, color: '#f59e0b' },
+    { name: 'Cloud Security', level: 84, color: '#ef4444' },
   ]},
-  { category: 'GENERATIVE AI & LLM ENGINEERING', items: [
-    { name: 'LangChain', level: 92, color: '#10b981' },
-    { name: 'LlamaIndex', level: 85, color: '#3b82f6' },
-    { name: 'RAG Pipelines', level: 90, color: '#6366f1' },
-    { name: 'Prompt Engineering', level: 95, color: '#f59e0b' },
-    { name: 'Agentic Workflows', level: 82, color: '#ec4899' },
+  { category: 'REMOTE SUPPORT TOOLS', items: [
+    { name: 'VPN', level: 90, color: '#3b82f6' },
+    { name: 'RDP / VDI', level: 88, color: '#6366f1' },
+    { name: 'RMM Tools', level: 82, color: '#10b981' },
+    { name: 'Zoom / Slack', level: 95, color: '#a855f7' },
   ]},
-  { category: 'AI · ML · DATA SCIENCE', items: [
-    { name: 'PyTorch', level: 88, color: '#ef4444' },
-    { name: 'TensorFlow', level: 82, color: '#f59e0b' },
-    { name: 'scikit-learn', level: 90, color: '#3b82f6' },
-    { name: 'Pandas', level: 95, color: '#10b981' },
-    { name: 'NumPy', level: 95, color: '#6366f1' },
+  { category: 'ITSM & INCIDENT MANAGEMENT', items: [
+    { name: 'ITIL 4', level: 90, color: '#10b981' },
+    { name: 'Incident Management', level: 88, color: '#3b82f6' },
+    { name: 'Ticket Lifecycles', level: 85, color: '#6366f1' },
+    { name: 'SLA Management', level: 80, color: '#f59e0b' },
   ]},
-  { category: 'BACKEND & APIS', items: [
-    { name: 'FastAPI', level: 92, color: '#10b981' },
-    { name: 'Flask', level: 85, color: '#3b82f6' },
-    { name: 'Django', level: 80, color: '#10b981' },
+  { category: 'OPERATING SYSTEMS', items: [
+    { name: 'Windows 10/11', level: 92, color: '#3b82f6' },
+    { name: 'macOS', level: 85, color: '#a855f7' },
+    { name: 'Linux', level: 80, color: '#f59e0b' },
+    { name: 'ChromeOS', level: 75, color: '#10b981' },
   ]},
-  { category: 'DATABASES', items: [
-    { name: 'PostgreSQL', level: 85, color: '#3b82f6' },
-    { name: 'Redis', level: 75, color: '#ef4444' },
-    { name: 'MongoDB', level: 80, color: '#10b981' },
+  { category: 'IDENTITY MANAGEMENT', items: [
+    { name: 'Active Directory', level: 85, color: '#3b82f6' },
+    { name: 'MFA', level: 88, color: '#ef4444' },
+    { name: 'IAM Policy Design', level: 84, color: '#f59e0b' },
   ]},
-  { category: 'VECTOR DATABASES', items: [
-    { name: 'Chroma', level: 88, color: '#3b82f6' },
-    { name: 'Pinecone', level: 85, color: '#a855f7' },
+  { category: 'DEVELOPMENT & VERSION CONTROL', items: [
+    { name: 'Angular', level: 72, color: '#ef4444' },
+    { name: 'Git / GitLab', level: 80, color: '#f59e0b' },
+    { name: 'API Integration', level: 75, color: '#10b981' },
   ]},
-  { category: 'DEVOPS & TOOLS', items: [
-    { name: 'Docker', level: 85, color: '#3b82f6' },
-    { name: 'Git', level: 92, color: '#f59e0b' },
-    { name: 'Linux', level: 88, color: '#f59e0b' },
-    { name: 'AWS', level: 75, color: '#f59e0b' },
+  { category: 'VIRTUALIZATION', items: [
+    { name: 'VirtualBox', level: 85, color: '#3b82f6' },
+    { name: 'VM Configuration', level: 82, color: '#6366f1' },
+    { name: 'Cross-platform Testing', level: 80, color: '#10b981' },
   ]},
-  { category: 'FRONTEND', items: [
-    { name: 'React', level: 80, color: '#3b82f6' },
-    { name: 'Next.js', level: 75, color: '#10b981' },
-    { name: 'TailwindCSS', level: 85, color: '#3b82f6' },
+  { category: 'SOFT SKILLS', items: [
+    { name: 'Technical Documentation', level: 90, color: '#ec4899' },
+    { name: 'Remote Communication', level: 95, color: '#a855f7' },
+    { name: 'Customer Service', level: 92, color: '#10b981' },
   ]},
 ];
 
 const PROJECTS = [
   { 
     id: 1, 
-    title: 'Little Angel Foundation', 
-    tags: ['FULL STACK', 'NGO', 'SOCIAL IMPACT'], 
-    color: '#ec4899', 
-    description: 'A platform dedicated to NGO management and donor engagement.',
-    icon: '🤍'
+    title: 'AWS Cloud Infrastructure Lab', 
+    tags: ['CLOUD', 'AWS', 'SECURITY'], 
+    color: '#f59e0b', 
+    description: 'Designed and deployed a secure, scalable cloud environment using AWS. Configured S3 buckets, launched EC2 instances, and managed user permissions through IAM policies.',
+    icon: '☁️',
+    stack: ['AWS S3', 'AWS EC2', 'IAM', 'VPC']
   },
   { 
     id: 2, 
-    title: "Safe Yatra - Women's Safety App", 
-    tags: ['MOBILE', 'AI', 'SAFETY TECH'], 
-    color: '#f43f5e', 
-    description: 'AI-powered safety application for real-time tracking and threat detection.',
-    icon: '📍'
+    title: 'Remote Support & Virtualization Lab', 
+    tags: ['VIRTUALIZATION', 'REMOTE SUPPORT', 'ITSM'], 
+    color: '#3b82f6', 
+    description: 'Simulated a remote help desk environment to troubleshoot multi-platform issues. Set up VMs using VirtualBox across Windows, Linux, and macOS; documented and resolved simulated user tickets.',
+    icon: '🖥️',
+    stack: ['VirtualBox', 'Slack', 'Zoom', 'Windows/Linux/macOS']
   },
   { 
     id: 3, 
-    title: 'OrgMind - Company Intelligence Assistant', 
-    tags: ['AI', 'GRAPHQL', 'FULL STACK'], 
-    color: '#8b5cf6', 
-    description: 'Enterprise AI assistant for deep organizational knowledge retrieval.',
-    icon: '🧠'
-  },
-  { 
-    id: 4, 
-    title: 'Gita-GPT', 
-    tags: ['FULL STACK', 'NLP', 'GENAI'], 
-    color: '#a855f7', 
-    description: 'Interactive AI based on spiritual texts using LLMs and RAG.',
-    icon: '🕉️'
-  },
-  { 
-    id: 5, 
-    title: 'Smart Resource Tracker', 
-    tags: ['BACKEND', 'API', 'ML'], 
-    color: '#3b82f6', 
-    description: 'Optimization tool for enterprise resource allocation.',
-    icon: '📊'
-  },
-  { 
-    id: 6, 
-    title: 'Dockerized ML Prediction API', 
-    tags: ['MLOPS', 'DOCKER', 'API'], 
-    color: '#06b6d4', 
-    description: 'Scalable containerized deployment of machine learning models.',
-    icon: '🐳'
+    title: 'Interactive Web Application (Full-Stack)', 
+    tags: ['FULL STACK', 'ANGULAR', 'API'], 
+    color: '#ec4899', 
+    description: 'Developed a functional web application to streamline data retrieval. Built a front-end interface using Angular integrated with external APIs, with version control managed via GitLab.',
+    icon: '🌐',
+    stack: ['Angular', 'REST APIs', 'GitLab', 'HTML/CSS']
   }
 ];
 
@@ -173,9 +153,9 @@ const TypingEffect = () => {
   const [typingSpeed, setTypingSpeed] = useState(150);
 
   const phrases = [
-    "Building intelligent backend systems 🚀",
-    "Exploring LLMs & RAG pipelines 🤖",
-    "Developing scalable AI integrations ⚙️"
+    "Designing secure AWS cloud environments ☁️",
+    "Troubleshooting multi-platform systems 🖥️",
+    "Delivering remote IT support & guidance ⚙️"
   ];
 
   useEffect(() => {
@@ -245,13 +225,12 @@ export default function App() {
   };
 
   const downloadResume = () => {
-    const element = document.createElement("a");
-    const file = new Blob(["Aahana Bobade - Resume\n\nContact: aahanabobade@gmail.com\nLinkedIn: linkedin.com/in/aahana-bobade\nGitHub: github.com/aahanabobade\n\nPlease contact Aahana for the full PDF resume."], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = "Aahana_Bobade_Resume.txt";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    const link = document.createElement('a');
+    link.href = '/Amal_Osman_Resume.pdf';
+    link.download = 'Amal_Osman_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     setActiveMenu(null);
   };
 
@@ -261,28 +240,28 @@ export default function App() {
         return (
           <div className="p-12 font-mono text-white">
             <div className="text-emerald-400 mb-8">// hello world !! Welcome to my portfolio</div>
-            <h1 className="text-8xl font-black mb-2 tracking-tighter">Aahana</h1>
-            <h1 className="text-8xl font-black text-pink-500 mb-8 tracking-tighter">Bobade</h1>
+            <h1 className="text-8xl font-black mb-2 tracking-tighter">Amal</h1>
+            <h1 className="text-8xl font-black text-pink-500 mb-8 tracking-tighter">Osman</h1>
             
             <div className="flex flex-wrap gap-4 mb-8">
               <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Backend Engineer
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Remote IT Specialist
               </span>
               <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
-                <span className="w-2 h-2 rounded-full bg-pink-500"></span> AI / ML Dev
+                <span className="w-2 h-2 rounded-full bg-pink-500"></span> Cloud & AWS
               </span>
               <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span> Data Scientist
+                <span className="w-2 h-2 rounded-full bg-blue-500"></span> ITIL 4 Certified
               </span>
               <span className="flex items-center gap-2 bg-zinc-800/50 px-3 py-1 rounded-full text-xs border border-zinc-700 text-pink-300">
-                <span className="w-2 h-2 rounded-full bg-pink-400"></span> @ EduVanceAI
+                <span className="w-2 h-2 rounded-full bg-pink-400"></span> @ WGU
               </span>
             </div>
 
             <TypingEffect />
 
             <p className="mt-8 text-lg max-w-2xl leading-relaxed text-zinc-400">
-              I live at the crossroads of <span className="text-blue-400">backend engineering</span>, <span className="text-blue-400">AI/ML</span>, and <span className="text-blue-400">data science</span>. I build systems that are genuinely <span className="text-blue-400 italic">intelligent and scalable</span>.
+              I specialize in <span className="text-blue-400">cloud infrastructure</span>, <span className="text-blue-400">virtualization</span>, and <span className="text-blue-400">multi-platform troubleshooting</span>. I build and maintain systems that are genuinely <span className="text-blue-400 italic">secure and reliable</span>.
             </p>
 
             <div className="flex gap-4 mt-12">
@@ -299,16 +278,16 @@ export default function App() {
 
             <div className="grid grid-cols-4 gap-4 mt-24 border-t border-zinc-800 pt-12 text-center">
               <div>
-                <div className="text-4xl font-bold">3+</div>
+                <div className="text-4xl font-bold">2+</div>
                 <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Years</div>
               </div>
               <div>
-                <div className="text-4xl font-bold">10+</div>
-                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Projects</div>
+                <div className="text-4xl font-bold">2</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Certifications</div>
               </div>
               <div>
-                <div className="text-4xl font-bold">∞</div>
-                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Curiosity</div>
+                <div className="text-4xl font-bold">3</div>
+                <div className="text-[10px] text-zinc-500 mt-2 uppercase tracking-widest">Projects</div>
               </div>
               <div>
                 <div className="text-4xl font-bold">↑</div>
@@ -317,14 +296,11 @@ export default function App() {
             </div>
 
             <div className="mt-20 flex flex-wrap gap-4 items-center justify-center opacity-60">
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Github size={14}/> GitHub</div>
               <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Linkedin size={14} className="text-blue-500"/> LinkedIn</div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><FileText size={14} className="text-zinc-400"/> Medium</div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Search size={14} className="text-orange-400"/> Tableau</div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Globe size={14} className="text-yellow-500"/> LeetCode</div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Instagram size={14} className="text-pink-500"/> Instagram</div>
               <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Mail size={14} className="text-emerald-400"/> Email</div>
-              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Youtube size={14} className="text-red-600"/> Youtube</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Cloud size={14} className="text-yellow-400"/> AWS Certified</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Shield size={14} className="text-purple-400"/> ITIL 4</div>
+              <div className="flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs"><Globe size={14} className="text-blue-400"/> WGU</div>
             </div>
           </div>
         );
@@ -332,29 +308,29 @@ export default function App() {
       case 'about.html':
         return (
           <div className="p-12 text-zinc-300">
-            <div className="text-zinc-600 mb-2 font-mono text-sm">&lt;!-- about.html - Aahana Bobade --&gt;</div>
+            <div className="text-zinc-600 mb-2 font-mono text-sm">&lt;!-- about.html - Amal Osman --&gt;</div>
             <h1 className="text-5xl font-black text-white mb-2 font-mono">About Me</h1>
             <div className="text-emerald-400 font-mono mb-12">// who I am - what I do - where I build</div>
 
             <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded mb-8 max-w-4xl">
               <p className="leading-relaxed">
-                Hi! I'm <span className="text-blue-400 font-bold">Aahana Bobade</span>, a software developer living at the crossroads of <span className="text-blue-400 underline decoration-zinc-600">backend engineering</span>, <span className="text-blue-400 underline decoration-zinc-600">AI/ML</span>, and <span className="text-blue-400 underline decoration-zinc-600">data science</span>. I love building systems that are not just functional but genuinely <span className="text-blue-400 italic">intelligent and scalable</span>. Currently a <span className="text-blue-400 font-bold">Junior Software Developer at EduVanceAI</span>, building AI integrations and backend systems that power learning experiences for thousands of users daily.
+                Hi! I'm <span className="text-blue-400 font-bold">Amal Osman</span>, a dedicated <span className="text-blue-400 underline decoration-zinc-600">Remote IT Specialist</span> with a strong foundation in <span className="text-blue-400 underline decoration-zinc-600">cloud infrastructure</span>, <span className="text-blue-400 underline decoration-zinc-600">virtualization</span>, and multi-platform troubleshooting. I have a proven ability to design secure AWS environments and resolve complex technical issues through hands-on labs and ad-hoc consultancy. I'm committed to delivering exceptional customer service and technical guidance in distributed, remote-first settings — backed by <span className="text-blue-400 italic font-bold">AWS Cloud Practitioner</span> and <span className="text-blue-400 italic font-bold">ITIL 4</span> certifications.
               </p>
             </div>
 
             <h2 className="text-emerald-400 font-mono text-sm uppercase tracking-widest mb-4">Current Focus</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 max-w-4xl">
               <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
-                🚀 Building scalable backend systems & AI integrations at EduVanceAI
+                ☁️ Building and securing AWS cloud environments (IAM, S3, EC2, VPC)
               </div>
               <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
-                💬 Deep interest in NLP, LLMs & RAG pipelines
+                🖥️ Remote troubleshooting across Windows, macOS, Linux & ChromeOS
               </div>
               <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
-                📂 Currently exploring RAG, MLOps & Vector Databases
+                📋 Applying ITIL 4 frameworks to incident management and service desk ops
               </div>
               <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded text-sm">
-                ✨ Talk to me about Python, APIs, Data Science
+                🎓 Completing B.S. in Software Engineering at WGU (Expected 2026)
               </div>
             </div>
 
@@ -362,25 +338,38 @@ export default function App() {
             <div className="space-y-4 max-w-4xl">
               <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-white">🎓 SIES Graduate School of Technology</h3>
-                  <span className="text-zinc-500 font-mono text-xs">2021 - 2025</span>
+                  <h3 className="text-xl font-bold text-white">🎓 Western Governors University (WGU)</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2023 - Present</span>
                 </div>
-                <div className="text-zinc-400 text-sm mb-1">University of Mumbai</div>
-                <div className="text-blue-400 text-sm mb-4">Bachelor of Engineering in Computer Engineering</div>
-                <div className="text-zinc-500 text-xs italic mb-2">Minors: Artificial Intelligence & Machine Learning (AI/ML)</div>
-                <div className="text-emerald-400 font-mono text-xs">GPA: 9.38</div>
+                <div className="text-blue-400 text-sm mb-2">Bachelor of Science in Software Engineering</div>
+                <div className="text-zinc-500 text-xs italic">Expected Graduation: 2026</div>
               </div>
               <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-white">🏫 New Horizon Public School, Airoli</h3>
-                  <span className="text-zinc-500 font-mono text-xs">2007 - 2021</span>
+                  <h3 className="text-xl font-bold text-white">🏫 Great River Connections Academy</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2019 - 2023</span>
                 </div>
-                <div className="text-zinc-400 text-sm mb-4">Higher Secondary Education</div>
-                <div className="flex gap-4 text-emerald-400 font-mono text-xs">
-                  <span>Class 12th: 89.6%</span>
-                  <span>|</span>
-                  <span>Class 10th: 91.5%</span>
+                <div className="text-zinc-400 text-sm mb-2">High School Diploma</div>
+              </div>
+            </div>
+
+            <h2 className="text-emerald-400 font-mono text-sm uppercase tracking-widest mb-4 mt-12">Volunteer & Academic Experience</h2>
+            <div className="space-y-4 max-w-4xl">
+              <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-bold text-white">IT Case Studies & Simulations</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2023 – Present</span>
                 </div>
+                <div className="text-blue-400 text-sm mb-3">@ WGU</div>
+                <p className="text-zinc-400 text-sm leading-relaxed">Applied ITIL 4 frameworks to resolve mock service desk incidents. Completed coursework in Network Administration and Operating Systems with a focus on remote troubleshooting and security.</p>
+              </div>
+              <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-bold text-white">Technical Support Volunteer</h3>
+                  <span className="text-zinc-500 font-mono text-xs">2024 – Present</span>
+                </div>
+                <div className="text-blue-400 text-sm mb-3">@ Independent Consultant</div>
+                <p className="text-zinc-400 text-sm leading-relaxed">Provided ad-hoc hardware and software troubleshooting for peers and local community members, including macOS data recovery and network setup. Translated complex technical concepts into easy-to-understand instructions for non-technical users.</p>
               </div>
             </div>
           </div>
@@ -404,16 +393,15 @@ export default function App() {
                         {p.tags.map(t => (
                           <span key={t} className="text-[9px] px-2 py-0.5 rounded-full border border-zinc-700 bg-zinc-800/50" style={{ color: p.color }}>{t}</span>
                         ))}
-                        <span className="text-[9px] text-zinc-500 px-2 py-0.5 border border-zinc-800 uppercase">Live ↗</span>
                       </div>
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-pink-100 transition-colors">{p.title}</h3>
                     <p className="text-sm text-zinc-400 leading-relaxed mb-6">{p.description}</p>
                     
                     <div className="flex flex-wrap gap-2">
-                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">FastAPI</span>
-                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">LangChain</span>
-                      <span className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">React</span>
+                      {p.stack.map(s => (
+                        <span key={s} className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-300">{s}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -459,7 +447,7 @@ export default function App() {
             <div className="mt-20">
               <h3 className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-6">ALSO FAMILIAR WITH:</h3>
               <div className="flex flex-wrap gap-3">
-                {['Pandas', 'NumPy', 'Matplotlib', 'SciPy', 'NLTK', 'SPacy', 'CV2', 'PySide6', 'Selenium', 'LangGraph', 'OpenAI API', 'Firebase', 'Power BI', 'Figma', 'MS Office', 'NLP Pipe-lining', 'Vector DBs'].map(item => (
+                {['PowerShell', 'Bash', 'Network Troubleshooting', 'TCP/IP', 'DNS', 'DHCP', 'Remote Desktop', 'ServiceNow', 'Jira', 'Microsoft 365', 'Google Workspace', 'VoIP'].map(item => (
                   <div key={item} className="px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs text-zinc-400 hover:text-blue-400 hover:border-blue-500 transition-colors cursor-pointer">
                     {item}
                   </div>
@@ -472,51 +460,51 @@ export default function App() {
       case 'experience.ts':
         return (
           <div className="p-12">
-            <div className="text-emerald-400 mb-2 font-mono text-sm">// experience.ts - professional journey</div>
-            <h1 className="text-6xl font-black text-white mb-2 font-mono">Experience</h1>
-            <div className="text-zinc-500 font-mono text-sm mb-12">interface Career extends TimeLine {'{}'}</div>
+            <div className="text-emerald-400 mb-2 font-mono text-sm">// experience.ts - certifications & credentials</div>
+            <h1 className="text-6xl font-black text-white mb-2 font-mono">Certifications</h1>
+            <div className="text-zinc-500 font-mono text-sm mb-12">interface Credentials extends Professional {'{}'}</div>
 
             <div className="relative pl-8 border-l border-zinc-800 space-y-16">
               <div className="relative">
-                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-blue-500"></div>
-                <div className="text-zinc-500 font-mono text-xs mb-2">2025 - Present</div>
-                <h3 className="text-2xl font-bold text-white mb-1">Junior Software Developer</h3>
-                <div className="text-blue-400 font-mono text-sm mb-4">@ EduVanceAI</div>
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-yellow-500"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">Active · 2024</div>
+                <h3 className="text-2xl font-bold text-white mb-1">AWS Certified Cloud Practitioner</h3>
+                <div className="text-yellow-400 font-mono text-sm mb-4">@ Amazon Web Services</div>
                 <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
-                  Building intelligent backend systems and AI integrations for an EdTech platform. ML-powered personalization, RAG pipelines, and scalable APIs serving thousands of learners daily.
+                  Validates foundational, high-level understanding of AWS Cloud, services, and terminology. Demonstrates proficiency in cloud architecture, security best practices, and AWS core services including IAM, S3, EC2, and VPC — directly applied in hands-on lab environments.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['FastAPI', 'Python', 'Django', 'PostgreSQL', 'Docker', 'AWS', 'GenAI', 'React'].map(tag => (
-                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
+                  {['AWS IAM', 'S3', 'EC2', 'VPC', 'Cloud Security', 'Cloud Architecture'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-yellow-400">{tag}</span>
                   ))}
                 </div>
               </div>
 
               <div className="relative">
-                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></div>
-                <div className="text-zinc-500 font-mono text-xs mb-2">Jun 2023 - Aug 2023</div>
-                <h3 className="text-2xl font-bold text-white mb-1">User Experience Designer</h3>
-                <div className="text-blue-400 font-mono text-sm mb-4">@ Zepto Digital Labs</div>
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-purple-500"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">Active · 2024</div>
+                <h3 className="text-2xl font-bold text-white mb-1">ITIL® 4 Foundation</h3>
+                <div className="text-purple-400 font-mono text-sm mb-4">@ Axelos / PeopleCert</div>
                 <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
-                  Designed UI for a simulation platform and improved user experience through design thinking principles. Delivered research-backed interface improvements that enhanced usability.
+                  Establishes expertise in IT Service Management (ITSM) best practices. Covers incident management, service desk operations, ticket lifecycle management, and SLA adherence — all applied through IT case studies and simulations at WGU to minimize downtime and improve user satisfaction.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['Figma', 'UX Research', 'Design Thinking', 'Prototyping'].map(tag => (
-                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
+                  {['Incident Management', 'Ticket Lifecycles', 'SLA Management', 'Service Desk', 'ITSM'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-purple-400">{tag}</span>
                   ))}
                 </div>
               </div>
 
               <div className="relative">
-                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700"></div>
-                <div className="text-zinc-500 font-mono text-xs mb-2">Jun 2022 - Jul 2022</div>
-                <h3 className="text-2xl font-bold text-white mb-1">Back End Intern</h3>
-                <div className="text-blue-400 font-mono text-sm mb-4">@ Laser Technologies Pvt Ltd</div>
+                <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-zinc-900 border-2 border-blue-400"></div>
+                <div className="text-zinc-500 font-mono text-xs mb-2">2023 – Present</div>
+                <h3 className="text-2xl font-bold text-white mb-1">B.S. Software Engineering (In Progress)</h3>
+                <div className="text-blue-400 font-mono text-sm mb-4">@ Western Governors University</div>
                 <p className="text-zinc-400 max-w-2xl text-sm leading-relaxed mb-4">
-                  Managed and maintained backend systems and databases to support enterprise-level web applications. Ensured uptime, performance, and data integrity across production systems.
+                  Rigorous coursework in Network Administration, Operating Systems, and Software Development. Applying ITIL 4 frameworks to real-world scenarios through simulations and case studies, with an expected graduation in 2026.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['Backend', 'Databases', 'SQL', 'Web Applications'].map(tag => (
+                  {['Network Administration', 'Operating Systems', 'Software Dev', 'Security'].map(tag => (
                     <span key={tag} className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] text-blue-400">{tag}</span>
                   ))}
                 </div>
@@ -528,50 +516,50 @@ export default function App() {
       case 'contact.css':
         return (
           <div className="p-12">
-            <div className="text-yellow-500 mb-2 font-mono text-sm">/* contact.css - let's build something */</div>
+            <div className="text-yellow-500 mb-2 font-mono text-sm">/* contact.css - let's connect */</div>
             <h1 className="text-6xl font-black text-white mb-2 font-mono">Contact</h1>
-            <div className="text-zinc-500 font-mono text-sm mb-12">// open to work, collabs & good conversations</div>
+            <div className="text-zinc-500 font-mono text-sm mb-12">// open to remote IT roles, collabs & good conversations</div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl">
               <div>
                 <h3 className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] mb-8">FIND ME ON</h3>
                 <div className="space-y-4">
-                  <a href="mailto:aahanabobade@gmail.com" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                  <a href="mailto:amalosman102938@gmail.com" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 bg-emerald-500/10 flex items-center justify-center rounded">
                         <Mail className="text-emerald-500 w-5 h-5" />
                       </div>
                       <div>
                         <div className="text-[10px] text-emerald-500 uppercase font-mono">Email</div>
-                        <div className="text-sm text-zinc-300">aahanabobade@gmail.com</div>
+                        <div className="text-sm text-zinc-300">amalosman102938@gmail.com</div>
                       </div>
                     </div>
                     <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
                   </a>
-                  <a href="https://linkedin.com/in/aahana-bobade" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                  <a href="https://www.linkedin.com/in/amal-osman-27bb8b264/" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 bg-blue-500/10 flex items-center justify-center rounded">
                         <Linkedin className="text-blue-500 w-5 h-5" />
                       </div>
                       <div>
                         <div className="text-[10px] text-blue-500 uppercase font-mono">LinkedIn</div>
-                        <div className="text-sm text-zinc-300">linkedin.com/in/aahana-bobade</div>
+                        <div className="text-sm text-zinc-300">linkedin.com/in/amal-osman-27bb8b264</div>
                       </div>
                     </div>
                     <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
                   </a>
-                  <a href="https://github.com/aahanabobade" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer">
+                  <div className="group flex items-center justify-between p-4 bg-zinc-900/40 border border-zinc-800 rounded hover:border-zinc-600 transition-colors cursor-pointer" onClick={downloadResume}>
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-zinc-100/10 flex items-center justify-center rounded">
-                        <Github className="text-zinc-100 w-5 h-5" />
+                      <div className="w-10 h-10 bg-red-500/10 flex items-center justify-center rounded">
+                        <FileText className="text-red-400 w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-[10px] text-zinc-500 uppercase font-mono">GitHub</div>
-                        <div className="text-sm text-zinc-300">github.com/aahanabobade</div>
+                        <div className="text-[10px] text-red-400 uppercase font-mono">Resume</div>
+                        <div className="text-sm text-zinc-300">Download PDF Resume</div>
                       </div>
                     </div>
                     <ChevronRight className="text-zinc-600 group-hover:text-white transition-colors" />
-                  </a>
+                  </div>
                 </div>
               </div>
 
@@ -598,7 +586,7 @@ export default function App() {
                     send_message()
                   </button>
                   <div className="text-zinc-500 text-[10px] font-mono italic mt-2">
-                    // Powered by Formspree (lands directly in my inbox) :p
+                    // Or reach me directly at amalosman102938@gmail.com
                   </div>
                 </form>
               </div>
@@ -610,57 +598,69 @@ export default function App() {
         return (
           <div className="p-12 text-zinc-300 max-w-4xl">
             <div className="flex items-end gap-2 mb-8">
-              <h1 className="text-4xl font-bold text-white">Aahana Bobade</h1>
+              <h1 className="text-4xl font-bold text-white">Amal Osman</h1>
               <div className="h-px bg-zinc-800 flex-grow mb-2"></div>
             </div>
             <div className="text-xs text-zinc-500 font-mono mb-8 uppercase tracking-widest">
-              Junior Software Developer @ EduVanceAI - India 🇮🇳
+              Remote IT Specialist · AWS & ITIL 4 Certified · WGU 🎓
             </div>
 
             <div className="flex flex-wrap gap-2 mb-12">
-              <span className="px-2 py-0.5 bg-blue-900/30 text-blue-400 text-[10px] border border-blue-900/50 flex items-center gap-1"><Cpu size={10}/> Python</span>
-              <span className="px-2 py-0.5 bg-blue-900/30 text-blue-400 text-[10px] border border-blue-900/50 flex items-center gap-1"><Cpu size={10}/> TypeScript</span>
-              <span className="px-2 py-0.5 bg-emerald-900/30 text-emerald-400 text-[10px] border border-emerald-900/50 flex items-center gap-1"><Cpu size={10}/> FastAPI</span>
-              <span className="px-2 py-0.5 bg-purple-900/30 text-purple-400 text-[10px] border border-purple-900/50 flex items-center gap-1"><Cpu size={10}/> LangChain</span>
-              <span className="px-2 py-0.5 bg-red-900/30 text-red-400 text-[10px] border border-red-900/50 flex items-center gap-1"><Cpu size={10}/> PyTorch</span>
+              <span className="px-2 py-0.5 bg-yellow-900/30 text-yellow-400 text-[10px] border border-yellow-900/50 flex items-center gap-1"><Cloud size={10}/> AWS Cloud Practitioner</span>
+              <span className="px-2 py-0.5 bg-purple-900/30 text-purple-400 text-[10px] border border-purple-900/50 flex items-center gap-1"><Shield size={10}/> ITIL 4 Foundation</span>
+              <span className="px-2 py-0.5 bg-blue-900/30 text-blue-400 text-[10px] border border-blue-900/50 flex items-center gap-1"><Cpu size={10}/> Windows · macOS · Linux</span>
+              <span className="px-2 py-0.5 bg-emerald-900/30 text-emerald-400 text-[10px] border border-emerald-900/50 flex items-center gap-1"><Cpu size={10}/> VPN · RDP · VDI</span>
             </div>
 
-            <h2 className="text-xl font-bold text-pink-400 flex items-center gap-2 mb-4">💜 About</h2>
+            <h2 className="text-xl font-bold text-pink-400 flex items-center gap-2 mb-4">👋 About</h2>
             <p className="leading-relaxed mb-12">
-              Hi, Aahana on this side! I am an aspiring computer engineer and am curious to learn new things about life every day! Perfection is something I always aim for. Being big on integrity and authenticity is something I always believe in. I enjoy painting, photography, designing, and editing. Growing up, I have always loved spending quality time making music on the keyboard. Glad to see you, cheers!
+              Hi, Amal here! I'm a dedicated Remote IT Specialist with a passion for cloud infrastructure, virtualization, and solving complex technical challenges in distributed environments. I hold an AWS Cloud Practitioner certification and an ITIL 4 Foundation certification, and I'm currently completing my Bachelor of Science in Software Engineering at WGU. Whether it's designing secure AWS environments, troubleshooting across Windows, macOS, and Linux, or translating technical jargon for non-technical users — I love making technology work for people. Always learning, always shipping.
             </p>
 
             <div className="space-y-2 mb-12 text-sm text-zinc-400 font-mono">
-              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Building <span className="text-white">scalable AI integrations</span> @ EduVanceAI</div>
-              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> NLP, LLMs, RAG pipelines, Vector DBs</div>
-              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Making <span className="text-white">data stories</span> non-data people get</div>
-              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Always learning, always shipping</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Designing secure <span className="text-white">AWS cloud environments</span> (IAM, S3, EC2, VPC)</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Remote support across <span className="text-white">Windows, macOS, Linux & ChromeOS</span></div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Applying <span className="text-white">ITIL 4 frameworks</span> to incident management & SLAs</div>
+              <div className="flex items-center gap-3"><ChevronRight size={14} className="text-emerald-500"/> Making <span className="text-white">complex tech simple</span> for non-technical users</div>
             </div>
 
             <h2 className="text-xl font-bold text-white mb-4">Stack</h2>
             <div className="space-y-4 text-xs font-mono">
               <div className="flex gap-4">
-                <span className="text-zinc-500 w-24">Languages:</span>
-                <span className="text-orange-400 flex flex-wrap gap-2">
-                  {['Python', 'TypeScript', 'SQL', 'JavaScript', 'Java'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                <span className="text-zinc-500 w-28">Cloud:</span>
+                <span className="text-yellow-400 flex flex-wrap gap-2">
+                  {['AWS IAM', 'S3', 'EC2', 'VPC', 'Cloud Security'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
                 </span>
               </div>
               <div className="flex gap-4">
-                <span className="text-zinc-500 w-24">AI / ML:</span>
-                <span className="text-orange-400 flex flex-wrap gap-2">
-                  {['PyTorch', 'LangChain', 'HuggingFace', 'scikit-learn', 'TensorFlow'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                <span className="text-zinc-500 w-28">Remote Tools:</span>
+                <span className="text-blue-400 flex flex-wrap gap-2">
+                  {['VPN', 'RDP', 'VDI', 'RMM Tools', 'Zoom', 'Slack'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
                 </span>
               </div>
               <div className="flex gap-4">
-                <span className="text-zinc-500 w-24">Backend:</span>
+                <span className="text-zinc-500 w-28">Identity:</span>
+                <span className="text-purple-400 flex flex-wrap gap-2">
+                  {['Active Directory', 'MFA', 'IAM Policy Design'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                </span>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-zinc-500 w-28">Dev:</span>
                 <span className="text-orange-400 flex flex-wrap gap-2">
-                  {['FastAPI', 'Flask', 'Django', 'PostgreSQL', 'Redis'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
+                  {['Angular', 'GitLab', 'REST APIs', 'VirtualBox'].map(s => <span key={s} className="bg-zinc-900 border border-zinc-800 px-2 py-0.5">{s}</span>)}
                 </span>
               </div>
             </div>
 
-            <div className="mt-20 border-t border-zinc-800 pt-8 text-center text-zinc-600 text-[10px] font-mono italic">
-              Made with 🤍 by Aahana · 2026
+            <div className="mt-12 p-4 bg-zinc-900/40 border border-zinc-800 rounded max-w-2xl">
+              <div className="text-[10px] text-emerald-400 font-mono uppercase tracking-widest mb-2">Contact</div>
+              <div className="text-sm text-zinc-300 font-mono">📧 amalosman102938@gmail.com</div>
+              <div className="text-sm text-zinc-300 font-mono mt-1">🔗 linkedin.com/in/amal-osman-27bb8b264</div>
+              <div className="text-sm text-zinc-300 font-mono mt-1">📞 +1 (216) 772-3739</div>
+            </div>
+
+            <div className="mt-12 border-t border-zinc-800 pt-8 text-center text-zinc-600 text-[10px] font-mono italic">
+              Made with 🤍 by Amal · 2026
             </div>
           </div>
         );
@@ -700,8 +700,8 @@ export default function App() {
                         <span>Open File...</span><span className="text-zinc-500">Ctrl+O</span>
                       </button>
                       <div className="h-px bg-zinc-700 my-1 mx-2"></div>
-                      <button onClick={downloadResume} className="w-full text-left px-6 py-1 hover:bg-blue-600 flex justify-between">
-                        <span>Download Resume</span>
+                      <button onClick={downloadResume} className="w-full text-left px-6 py-1 hover:bg-blue-600">
+                        <span>Download Resume (PDF)</span>
                       </button>
                     </>
                   )}
@@ -729,7 +729,7 @@ export default function App() {
             </div>
           ))}
         </div>
-        <div className="text-zinc-500 font-medium">aahana-bobade : portfolio</div>
+        <div className="text-zinc-500 font-medium">amal-osman : portfolio</div>
         <div className="flex items-center gap-2">
           <button className="hover:bg-zinc-700 p-1"><X className="w-3 h-3" /></button>
         </div>
@@ -742,7 +742,7 @@ export default function App() {
           <Search className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
           <GitBranch className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
           <div className="flex-1"></div>
-          <button onClick={downloadResume} title="Download Resume">
+          <button onClick={downloadResume} title="Download Resume PDF">
             <FileText className="w-6 h-6 text-red-500/80 hover:text-red-500 cursor-pointer" />
           </button>
           <Settings className="w-6 h-6 hover:text-zinc-300 cursor-pointer" />
@@ -775,7 +775,7 @@ export default function App() {
                 className="flex items-center gap-2 px-4 py-1.5 cursor-pointer hover:bg-[#2a2d2e] text-zinc-400"
               >
                 <FileText className="w-4 h-4 text-red-400" />
-                <span>Aahana_Resume.txt</span>
+                <span>Amal_Osman_Resume.pdf</span>
               </div>
             </div>
           </div>
@@ -807,7 +807,7 @@ export default function App() {
           {/* Breadcrumbs */}
           {activeFile && (
             <div className="px-4 py-1 bg-[#1e1e1e] border-b border-[#2b2b2b] flex items-center gap-2 text-[11px] text-zinc-500 font-mono">
-              <span className="hover:text-zinc-300 cursor-pointer">aahana-bobade</span>
+              <span className="hover:text-zinc-300 cursor-pointer">amal-osman</span>
               <span>&gt;</span>
               <span className="hover:text-zinc-300 cursor-pointer">src</span>
               <span>&gt;</span>
@@ -833,11 +833,11 @@ export default function App() {
         <div className="flex items-center gap-4">
           <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">UTF-8</div>
           <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">TypeScript React</div>
-          <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">Aahana Dark ✨</div>
+          <div className="hover:bg-[#ffffff22] px-1 cursor-pointer">Amal Dark ✨</div>
         </div>
       </div>
 
-      {/* Command Palette Overlay */}
+      {/* Command Palette */}
       {isPaletteOpen && (
         <div 
           className="fixed inset-0 bg-black/40 z-[200] flex justify-center pt-2"
@@ -876,7 +876,7 @@ export default function App() {
                 <button onClick={downloadResume} className="w-full text-left px-3 py-2 hover:bg-blue-600 group flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
                     <FileText className="w-4 h-4 text-red-400" />
-                    <span className="text-zinc-300 group-hover:text-white">Aahana_Resume.txt</span>
+                    <span className="text-zinc-300 group-hover:text-white">Amal_Osman_Resume.pdf</span>
                   </div>
                   <span className="text-zinc-500 group-hover:text-white/70 italic text-[10px]">./</span>
                 </button>
